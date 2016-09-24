@@ -27,12 +27,6 @@
       "principalType": "ROLE",
       "principalId": "admin",
       "permission": "ALLOW"
-    },
-    {
-      "accessType": "*",
-      "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "DENY"
     }
   ],
   "methods": {}

@@ -35,5 +35,9 @@
   "Document": {
     "dataSource": "pg",
     "public": true
+  },
+  "Container": {
+    "dataSource": "storageDS",
+    "public": true
   }
 }

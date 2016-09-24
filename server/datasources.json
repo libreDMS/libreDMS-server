@@ -12,5 +12,11 @@
     "name": "pg",
     "user": "tim",
     "connector": "postgresql"
+  },
+  "storageDS": {
+    "name": "storageDS",
+    "connector": "loopback-component-storage",
+    "provider": "filesystem",
+    "root": "storage"
   }
 }
