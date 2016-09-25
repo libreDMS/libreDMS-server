@@ -1,6 +1,5 @@
 'use strict';
 module.exports = function(server) {
-  //console.dir(Object.keys(server.models.Container));
   server
     .models
     .Container

@@ -27,7 +27,8 @@
     "mocha": "^3.0.2",
     "supertest": "^2.0.0",
     "supertest-as-promised": "^2.0.0",
-    "nsp": "^2.1.0"
+    "nsp": "^2.1.0",
+    "chai": "^3.5.0"
   },
   "repository": {
     "type": "",
