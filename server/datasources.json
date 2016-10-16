@@ -4,13 +4,13 @@
     "connector": "memory"
   },
   "pg": {
-    "host": "localhost",
+    "host": "db",
     "port": 5432,
     "url": "",
     "database": "libredms",
-    "password": "123456",
+    "password": "postgres",
     "name": "pg",
-    "user": "tim",
+    "user": "postgres",
     "connector": "postgresql"
   },
   "storageDS": {

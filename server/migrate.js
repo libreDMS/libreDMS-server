@@ -5,20 +5,23 @@ var boot = require('loopback-boot');
 
 var app = module.exports = loopback();
 
-console.log('Starting server.js');
+console.log('Starting migrate.js');
 process.setMaxListeners(0);
 
 app.start = function() {
-  // start the web server
-  return app.listen(function() {
-    app.emit('started');
-    var baseUrl = app.get('url').replace(/\/$/, '');
-    console.log('Web server listening at: %s', baseUrl);
-    if (app.get('loopback-component-explorer')) {
-      var explorerPath = app.get('loopback-component-explorer').mountPath;
-      console.log('Browse your REST API at %s%s', baseUrl, explorerPath);
-    }
-  });
+  console.log('starting database migrations');
+  app
+    .dataSources
+    .pg
+    .autoupdate()
+    .then(() => {
+      console.log('finished database migrations');
+      process.exit();
+    })
+    .catch(err => {
+      console.error(err);
+      process.exit();
+    });
 };
 
 // Bootstrap the application, configure models, datasources and middleware.
@@ -26,6 +29,7 @@ app.start = function() {
 boot(app, __dirname, function(err) {
   if (err) throw err;
   // start the server if `$ node server.js`
+  console.log([require.main,module]);
   if ((require.main === module) || process.env.LOADED_MOCHA_OPTS)
     app.start();
 });

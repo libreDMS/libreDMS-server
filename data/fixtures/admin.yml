@@ -1,0 +1,10 @@
+Role:
+  admin_role:
+    name: "admin"
+    description: "A administrative role"
+
+User:
+  admin:
+    username: admin
+    password: 123456
+    email: admin@example.com

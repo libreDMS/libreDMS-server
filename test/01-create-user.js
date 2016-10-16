@@ -1,35 +1,34 @@
 'use strict';
 
-var app,
-  token,
-  document,
-  assert = require('assert'),
-  request = require('supertest-as-promised'),
-  expect = require('chai').expect,
-  Promise = require('bluebird'),
-  execFile = Promise.promisify(require('child_process').execFile);
+var app, token, document, connection;
+
+var assert = require('assert');
+var request = require('supertest-as-promised');
+var expect = require('chai').expect;
+var Promise = require('bluebird');
+var execFile = Promise.promisify(require('child_process').execFile);
+var pg = require('pg');
 
 describe('Testing document creation', function() {
   before('before creating documents', function(done) {
-    this.timeout(20000);
-    execFile(
-      'createdb',
-      [
-        '-h', '127.0.0.1',
-        '-U', process.env.USER,
-        '-p', '5432',
-        '--maintenance-db=postgres',
-        'libredms',
-      ]
-    )
-    .then(function(stdout, stderr) {
-      app = require('../server/server');
-      app.on('started', function() {
-        done();
+    var config = {
+      host: 'db',
+      port: 5432,
+      database: 'postgres',
+      password: '',
+      user: 'postgres',
+    };
+
+    var client = new pg.Client();
+
+    client.connect(function(err) {
+      if (err) throw err;
+
+      // execute a query on our database
+      client.query('CREATE DATABASE libredms_test', function(err, result) {
+        console.dir(err);
+        if (err) throw err;
       });
-    })
-    .catch(function(err) {
-      console.error(err);
     });
   });
 
@@ -37,22 +36,11 @@ describe('Testing document creation', function() {
     this.timeout(20000);
     app.datasources.pg.disconnect();
 
-    execFile(
-      'dropdb',
-      [
-        '-h', '127.0.0.1',
-        '-U', process.env.USER,
-        '-p', '5432',
-        '--maintenance-db=postgres',
-        'libredms',
-      ]
-    )
-      .then(function(stdout, stderr) {
-        done();
-      })
-      .catch(function(err) {
-        console.error(err);
-      });
+    client.query('DROP DATABASE libredms_test', function(err, result) {
+      if (err) throw err;
+
+      done();
+    });
   });
 
   describe('get a login token', function() {

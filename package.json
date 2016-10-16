@@ -5,6 +5,9 @@
   "scripts": {
     "lint": "eslint .",
     "start": "node .",
+    "migrate": "node server/migrate.js",
+    "democontent": "node server/democontent.js",
+    "test": "mocha test",
     "posttest": "npm run lint && nsp check"
   },
   "dependencies": {
@@ -18,7 +21,8 @@
     "loopback-datasource-juggler": "^2.39.0",
     "loopback": "^2.22.0",
     "loopback-component-storage": "^1.9.1",
-    "loopback-connector-postgresql": "^2.6.3"
+    "loopback-connector-postgresql": "^2.6.3",
+    "loopback-fixtures": "^0.0.9"
   },
   "devDependencies": {
     "eslint": "^2.13.1",

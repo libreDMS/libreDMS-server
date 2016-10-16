@@ -1,0 +1,17 @@
+version: "2"
+services:
+  db:
+    image: postgres
+  api:
+    build: .
+    command: "npm test"
+    ports:
+        - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      - NODE_ENV=development
+      # - DEBUG=*
+    volumes:
+        - .:/usr/src/app
+        - ./storage:/usr/src/app/storage
